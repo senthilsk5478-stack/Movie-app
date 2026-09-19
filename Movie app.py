@@ -36,14 +36,11 @@ for index, row in enumerate(filtered_data.iterrows()):
     movie_data = row[1]
     col_to_use = cols[index % 3] 
     with col_to_use:
-        st.image(movie_data["Poster"], width=200, caption=movie_data["Movie Title"])
+        # use_container_width forces the browser to load the image smoothly
+        st.image(movie_data["Poster"], use_container_width=True, caption=movie_data["Movie Title"])
 
 st.divider()
 
-# 6. Display the Bar Chart (It's back!)
+# 6. Display the Bar Chart
 st.subheader("Movie Ratings Chart")
 st.bar_chart(filtered_data, x="Movie Title", y="IMDB Rating")
-
-# 7. Display the raw data table 
-st.subheader("Raw Data Table")
-st.dataframe(filtered_data, use_container_width=True)
