@@ -230,7 +230,7 @@ with tab1:
                 format="%d",
             ),
             "Duration": st.column_config.NumberColumn(
-                "Duration (mins) ⏱️",
+                "Duration",
                 format="%d mins"
             ),
             "Year": st.column_config.NumberColumn(
