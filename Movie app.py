@@ -29,72 +29,75 @@ filtered_data = filtered_data.sort_values(by="IMDB Rating", ascending=False)
 st.write(f"**Displaying {len(filtered_data)} movies matching your criteria (out of {len(data)} total movies).**")
 st.divider()
 
-# --- YOUR OLD VIEWS ---
-st.header("Raw Data & Basic Chart 📊")
+# --- THE NEW MASTER TABS ---
+tab1, tab2 = st.tabs(["Data & Extremes 📁", "Charts & Visualizations 📈"])
 
-# Using tabs to keep it clean!
-tab1, tab2 = st.tabs(["Raw Data Table", "Basic Rating Chart"])
-
+# ---------------------------------------------------------
+# TAB 1: THE RAW DATA AND THE EXTREMES
+# ---------------------------------------------------------
 with tab1:
+    st.subheader("Raw Data Table")
     st.dataframe(filtered_data, use_container_width=True)
+    
+    st.divider()
+    
+    st.header("Duration Extremes: Shortest and Longest Movies")
+    if not filtered_data.empty:
+        shortest = filtered_data.loc[filtered_data['Duration'].idxmin()]
+        longest = filtered_data.loc[filtered_data['Duration'].idxmax()]
+
+        ext1, ext2 = st.columns(2)
+        with ext1:
+            st.subheader("Shortest Movie 📉")
+            st.write(f"**Movie:** {shortest['Movie Title']}")
+            st.write(f"**Genre:** {shortest['Genre']}")
+            st.write(f"**Duration:** {shortest['Duration']} minutes")
+            st.write(f"**Rating:** {shortest['IMDB Rating']}")
+
+        with ext2:
+            st.subheader("Longest Movie 📈")
+            st.write(f"**Movie:** {longest['Movie Title']}")
+            st.write(f"**Genre:** {longest['Genre']}")
+            st.write(f"**Duration:** {longest['Duration']} minutes")
+            st.write(f"**Rating:** {longest['IMDB Rating']}")
+
+
+# ---------------------------------------------------------
+# TAB 2: ALL OF THE CHARTS
+# ---------------------------------------------------------
 with tab2:
+    st.subheader("Basic Rating Chart")
     st.bar_chart(filtered_data, x="Movie Title", y="IMDB Rating")
     
-st.divider()
+    st.divider()
 
-# --- NEW ADVANCED VISUALIZATIONS ---
-st.header("Interactive Visualizations 📈")
+    # Top 10 Charts
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Top 10 Movies by Rating")
+        top_rating = filtered_data.nlargest(10, 'IMDB Rating')
+        st.bar_chart(top_rating, x="Movie Title", y="IMDB Rating")
 
-# Top 10 Charts
-col1, col2 = st.columns(2)
-with col1:
-    st.subheader("Top 10 Movies by Rating")
-    top_rating = filtered_data.nlargest(10, 'IMDB Rating')
-    st.bar_chart(top_rating, x="Movie Title", y="IMDB Rating")
+    with col2:
+        st.subheader("Top 10 Movies by Voting Counts")
+        top_votes = filtered_data.nlargest(10, 'Votes')
+        st.bar_chart(top_votes, x="Movie Title", y="Votes")
 
-with col2:
-    st.subheader("Top 10 Movies by Voting Counts")
-    top_votes = filtered_data.nlargest(10, 'Votes')
-    st.bar_chart(top_votes, x="Movie Title", y="Votes")
+    # Genre Charts
+    col3, col4 = st.columns(2)
+    with col3:
+        st.subheader("Genre Distribution")
+        genre_counts = filtered_data['Genre'].value_counts().reset_index()
+        genre_counts.columns = ['Genre', 'Count']
+        st.bar_chart(genre_counts, x="Genre", y="Count")
 
-# Genre Charts
-col3, col4 = st.columns(2)
-with col3:
-    st.subheader("Genre Distribution")
-    genre_counts = filtered_data['Genre'].value_counts().reset_index()
-    genre_counts.columns = ['Genre', 'Count']
-    st.bar_chart(genre_counts, x="Genre", y="Count")
+    with col4:
+        st.subheader("Average Duration by Genre")
+        avg_duration = filtered_data.groupby('Genre')['Duration'].mean().reset_index()
+        st.bar_chart(avg_duration, x="Genre", y="Duration")
 
-with col4:
-    st.subheader("Average Duration by Genre")
-    avg_duration = filtered_data.groupby('Genre')['Duration'].mean().reset_index()
-    st.bar_chart(avg_duration, x="Genre", y="Duration")
+    st.divider()
 
-st.divider()
-
-# Duration Extremes
-st.header("Duration Extremes: Shortest and Longest Movies")
-if not filtered_data.empty:
-    shortest = filtered_data.loc[filtered_data['Duration'].idxmin()]
-    longest = filtered_data.loc[filtered_data['Duration'].idxmax()]
-
-    ext1, ext2 = st.columns(2)
-    with ext1:
-        st.subheader("Shortest Movie 📉")
-        st.write(f"**Movie:** {shortest['Movie Title']}")
-        st.write(f"**Genre:** {shortest['Genre']}")
-        st.write(f"**Duration:** {shortest['Duration']} minutes")
-        st.write(f"**Rating:** {shortest['IMDB Rating']}")
-
-    with ext2:
-        st.subheader("Longest Movie 📈")
-        st.write(f"**Movie:** {longest['Movie Title']}")
-        st.write(f"**Genre:** {longest['Genre']}")
-        st.write(f"**Duration:** {longest['Duration']} minutes")
-        st.write(f"**Rating:** {longest['IMDB Rating']}")
-
-st.divider()
-
-# Scatter Plot
-st.subheader("Rating vs. Voting Counts (Correlation)")
-st.scatter_chart(filtered_data, x="IMDB Rating", y="Votes")
+    # Scatter Plot
+    st.subheader("Rating vs. Voting Counts (Correlation)")
+    st.scatter_chart(filtered_data, x="IMDB Rating", y="Votes")
