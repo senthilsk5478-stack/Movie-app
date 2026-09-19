@@ -3,7 +3,7 @@ import pandas as pd
 
 st.set_page_config(layout="wide") 
 
-# --- UPDATED UNIQUE TITLE ---
+# --- TITLE ---
 st.title("Multi-Region Cinema Analytics Portal 🌍")
 
 # 1. Load data
@@ -164,42 +164,42 @@ with tab1:
             st.info(f"**Newest Film:** {newest['Movie Title']} ({newest['Year']})")
 
 # ---------------------------------------------------------
-# TAB 2: ALL OF THE CHARTS
+# TAB 2: UNIQUE REDESIGNED ANALYTICS CHARTS
 # ---------------------------------------------------------
 with tab2:
     if not filtered_data.empty:
-        st.subheader("💰 Top 10 Highest Grossing Films")
-        top_revenue = filtered_data.nlargest(10, 'Box Office')
-        st.bar_chart(top_revenue, x="Movie Title", y="Box Office", color="#28a745")
+        
+        # Chart 1: Temporal Trend Line
+        st.subheader("📈 Temporal Trend: Cinematic Output Volume Over Time")
+        yearly_counts = filtered_data.groupby('Year').size().reset_index(name='Movie Count')
+        st.line_chart(yearly_counts, x="Year", y="Movie Count", color="#1f77b4")
         
         st.divider()
 
+        # Charts 2 & 3: Genre Performance Split (Rating vs Revenue)
         col1, col2 = st.columns(2)
         with col1:
-            st.subheader("Top 10 Films by Rating")
-            top_rating = filtered_data.nlargest(10, 'IMDB Rating')
-            st.bar_chart(top_rating, x="Movie Title", y="IMDB Rating")
+            st.subheader("⭐ Average IMDB Rating by Genre")
+            genre_rating = filtered_data.groupby('Genre')['IMDB Rating'].mean().reset_index()
+            st.bar_chart(genre_rating, x="Genre", y="IMDB Rating", color="#ff7f0e")
 
         with col2:
-            st.subheader("Top 10 Films by Voting Volume")
-            top_votes = filtered_data.nlargest(10, 'Votes')
-            st.bar_chart(top_votes, x="Movie Title", y="Votes")
-
-        col3, col4 = st.columns(2)
-        with col3:
-            st.subheader("Genre Distribution Breakdown")
-            genre_counts = filtered_data['Genre'].value_counts().reset_index()
-            genre_counts.columns = ['Genre', 'Count']
-            st.bar_chart(genre_counts, x="Genre", y="Count")
-
-        with col4:
-            st.subheader("Average Duration by Genre")
-            avg_duration = filtered_data.groupby('Genre')['Duration'].mean().reset_index()
-            st.bar_chart(avg_duration, x="Genre", y="Duration")
+            st.subheader("💰 Cumulative Revenue by Genre ($M)")
+            genre_bo = filtered_data.groupby('Genre')['Box Office'].sum().reset_index()
+            st.bar_chart(genre_bo, x="Genre", y="Box Office", color="#2ca02c")
 
         st.divider()
 
-        st.subheader("Rating vs. Box Office Correlation Analysis")
-        st.scatter_chart(filtered_data, x="IMDB Rating", y="Box Office", color="#28a745")
+        # Charts 4 & 5: Director Productivity & Runtime vs Rating Scatter
+        col3, col4 = st.columns(2)
+        with col3:
+            st.subheader("🎬 Most Featured Directors in View")
+            director_counts = filtered_data['Director'].value_counts().head(10).reset_index()
+            director_counts.columns = ['Director', 'Movie Count']
+            st.bar_chart(director_counts, x="Director", y="Movie Count", color="#9467bd")
+
+        with col4:
+            st.subheader("⏱️ Runtime vs. Critical Reception")
+            st.scatter_chart(filtered_data, x="Duration", y="IMDB Rating", color="#d62728")
     else:
         st.warning("No records match your active parameters. Please broaden your filter criteria.")
