@@ -29,7 +29,7 @@ filtered_data = filtered_data.sort_values(by="IMDB Rating", ascending=False)
 st.write(f"**Displaying {len(filtered_data)} movies matching your criteria (out of {len(data)} total movies).**")
 st.divider()
 
-# --- THE NEW MASTER TABS ---
+# --- THE MASTER TABS ---
 tab1, tab2 = st.tabs(["Data & Extremes 📁", "Charts & Visualizations 📈"])
 
 # ---------------------------------------------------------
@@ -37,7 +37,16 @@ tab1, tab2 = st.tabs(["Data & Extremes 📁", "Charts & Visualizations 📈"])
 # ---------------------------------------------------------
 with tab1:
     st.subheader("Raw Data Table")
-    st.dataframe(filtered_data, use_container_width=True)
+    
+    # --- THE BULLETPROOF S.NO FIX ---
+    display_data = filtered_data.copy()
+    # Create a brand new column named 'S.No' and put it at position 0 (the very front)
+    # It counts from 1 to however many rows exist after filtering
+    display_data.insert(0, 'S.No', range(1, len(display_data) + 1))
+    
+    # hide_index=True tells Streamlit to hide its own ugly row numbers
+    st.dataframe(display_data, hide_index=True, use_container_width=True)
+    # --------------------------------
     
     st.divider()
     
@@ -60,7 +69,6 @@ with tab1:
             st.write(f"**Genre:** {longest['Genre']}")
             st.write(f"**Duration:** {longest['Duration']} minutes")
             st.write(f"**Rating:** {longest['IMDB Rating']}")
-
 
 # ---------------------------------------------------------
 # TAB 2: ALL OF THE CHARTS
