@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 
 st.set_page_config(layout="wide") 
 
@@ -266,39 +267,55 @@ if not filtered_data.empty:
 
     st.divider()
 
-    # --- VISUAL INSIGHTS ---
+    # --- VISUAL INSIGHTS (DIVERSIFIED CHART TYPES) ---
     st.header("📈 Visual Insights")
     
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("🌟 Top 10 Rated Films")
-        top_rating = filtered_data.nlargest(10, 'IMDB Rating')
-        st.bar_chart(top_rating, x="Movie Title", y="IMDB Rating", color="#ff7f0e")
+        st.subheader("🌟 Top 10 Rated Films (Horizontal Ranking)")
+        top_rating = filtered_data.nsmallest(10, 'IMDB Rating').sort_values('IMDB Rating', ascending=True) if len(filtered_data) >= 10 else filtered_data.sort_values('IMDB Rating', ascending=True)
+        top_rating = filtered_data.nlargest(10, 'IMDB Rating').sort_values('IMDB Rating', ascending=True)
+        fig_rating = px.bar(top_rating, x='IMDB Rating', y='Movie Title', orientation='h', text='IMDB Rating', color='IMDB Rating', color_continuousScale='sunset')
+        fig_rating.update_layout(xaxis_title="IMDB Rating", yaxis_title="")
+        st.plotly_chart(fig_rating, use_container_width=True)
 
     with col2:
-        st.subheader("💰 Top 10 Box Office Hits ($M)")
-        top_revenue = filtered_data.nlargest(10, 'Box Office')
-        st.bar_chart(top_revenue, x="Movie Title", y="Box Office", color="#2ca02c")
+        st.subheader("💰 Rating vs. Box Office Correlation (Bubble Scatter)")
+        fig_scatter = px.scatter(
+            filtered_data, 
+            x='IMDB Rating', 
+            y='Box Office', 
+            size='Votes', 
+            color='Genre',
+            hover_name='Movie Title',
+            labels={'Box Office': 'Box Office ($M)', 'IMDB Rating': 'IMDB Rating'}
+        )
+        st.plotly_chart(fig_scatter, use_container_width=True)
     
     st.divider()
 
     col3, col4 = st.columns(2)
     with col3:
-        st.subheader("🎭 Genre Variety Breakdown")
+        st.subheader("🎭 Genre Proportions (Donut Chart)")
         genre_counts = filtered_data['Genre'].value_counts().reset_index()
         genre_counts.columns = ['Genre', 'Count']
-        st.bar_chart(genre_counts, x="Genre", y="Count", color="#1f77b4")
+        fig_donut = px.pie(genre_counts, names='Genre', values='Count', hole=0.4)
+        st.plotly_chart(fig_donut, use_container_width=True)
 
     with col4:
-        st.subheader("🗳️ Most Voted Films")
-        top_votes = filtered_data.nlargest(10, 'Votes')
-        st.bar_chart(top_votes, x="Movie Title", y="Votes", color="#9467bd")
+        st.subheader("🗳️ Most Voted Films (Horizontal Ranking)")
+        top_votes = filtered_data.nlargest(10, 'Votes').sort_values('Votes', ascending=True)
+        fig_votes = px.bar(top_votes, x='Votes', y='Movie Title', orientation='h', color='Votes', color_continuousScale='purples')
+        fig_votes.update_layout(xaxis_title="Total Votes", yaxis_title="")
+        st.plotly_chart(fig_votes, use_container_width=True)
 
     st.divider()
 
-    st.subheader("📊 Historical Quality Trajectory: Average IMDB Rating by Release Year")
+    st.subheader("📊 Historical Quality Trajectory (Filled Area Trend)")
     yearly_trend = filtered_data.groupby('Year')['IMDB Rating'].mean().reset_index()
-    st.line_chart(yearly_trend, x="Year", y="IMDB Rating", color="#1f77b4")
+    fig_area = px.area(yearly_trend, x='Year', y='IMDB Rating', markers=True, line_shape='spline')
+    fig_area.update_layout(xaxis_title="Release Year", yaxis_title="Average IMDB Rating")
+    st.plotly_chart(fig_area, use_container_width=True)
     
 else:
     st.warning("No records match your active parameters. Please broaden your filter criteria.")
