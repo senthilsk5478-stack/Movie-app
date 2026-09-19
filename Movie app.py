@@ -1,24 +1,27 @@
 import streamlit as st
 import pandas as pd
 
-st.title("My First Movie App 🍿")
-st.write("Welcome to my own IMDB-style dashboard!")
+st.title("Senthil's Movie Database 🎬")
+st.write("Welcome to my interactive dashboard!")
 
+# 1. Create the Sidebar and Slider
+st.sidebar.header("Filter Options")
+min_rating = st.sidebar.slider("Minimum IMDB Rating:", 0.0, 10.0, 8.0)
+
+# 2. Create the Data (I added a few more movies!)
 data = pd.DataFrame({
-    'Movie Title': ['The Dark Knight', 'Inception', 'Dune'],
-    'Director': ['Christopher Nolan', 'Christopher Nolan', 'Denis Villeneuve'],
-    'IMDB Rating': [9.0, 8.8, 8.0]
+    'Movie Title': ['The Dark Knight', 'Inception', 'Dune', 'Avatar', 'Iron Man'],
+    'Director': ['Christopher Nolan', 'Christopher Nolan', 'Denis Villeneuve', 'James Cameron', 'Jon Favreau'],
+    'IMDB Rating': [9.0, 8.8, 8.0, 7.8, 7.9]
 })
 
-st.dataframe(data)
+# 3. Filter the data using the slider's current number
+filtered_data = data[data['IMDB Rating'] >= min_rating]
+
+# 4. Display the filtered table
+st.write(f"Showing movies with a rating of {min_rating} or higher:")
+st.dataframe(filtered_data)
+
+# 5. Display the chart (which will also update!)
 st.subheader("Movie Ratings Chart")
-st.bar_chart(data, x="Movie Title", y="IMDB Rating")
-
-# Create a sidebar
-st.sidebar.header("User Controls")
-
-# Add a slider widget to the sidebar
-user_rating = st.sidebar.slider("Rate your favorite movie out of 10:", 0.0, 10.0, 5.0)
-
-# Display the result in the main app
-st.write(f"**You selected a rating of:** {user_rating}")
+st.bar_chart(filtered_data, x="Movie Title", y="IMDB Rating")
