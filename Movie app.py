@@ -3,8 +3,8 @@ import pandas as pd
 
 st.set_page_config(layout="wide") 
 
-# --- UNIQUE APP TITLE ---
-st.title("Global Cinema Intelligence Hub 🎬")
+# --- UPDATED UNIQUE TITLE ---
+st.title("Multi-Region Cinema Analytics Portal 🌍")
 
 # 1. Load data
 data = pd.read_csv("movies.csv")
@@ -51,7 +51,7 @@ filtered_data = filtered_data[
 
 filtered_data = filtered_data.sort_values(by="IMDB Rating", ascending=False)
 
-# --- UNIQUE SUMMARY TEXT & KPI DELTAS ---
+# --- SUMMARY TEXT & KPI DELTAS ---
 st.write(f"**Filtered View: Showing {len(filtered_data)} cinematic records matching your parameters (out of {len(data)} total records).**")
 
 global_avg_rating = data['IMDB Rating'].mean()
