@@ -11,3 +11,5 @@ data = pd.DataFrame({
 })
 
 st.dataframe(data)
+st.subheader("Movie Ratings Chart")
+st.bar_chart(data, x="Movie Title", y="IMDB Rating")
