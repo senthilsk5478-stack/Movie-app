@@ -22,11 +22,19 @@ if search_term:
         filtered_data['Genre'].str.contains(search_term, case=False)
     ]
 
-# Sort movies highest to lowest
 filtered_data = filtered_data.sort_values(by="IMDB Rating", ascending=False)
 
-# 4. Top Summary Text
-st.write(f"**Displaying {len(filtered_data)} movies matching your criteria (out of {len(data)} total movies).**")
+# --- NEW ATTRACTIVE FEATURE 1: DASHBOARD METRICS ---
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.metric("Total Movies Found", len(filtered_data))
+with col2:
+    avg_rating = filtered_data['IMDB Rating'].mean() if not filtered_data.empty else 0
+    st.metric("Average Rating", f"{avg_rating:.1f} ⭐")
+with col3:
+    total_votes = filtered_data['Votes'].sum() if not filtered_data.empty else 0
+    st.metric("Total Votes", f"{total_votes:,}")
+    
 st.divider()
 
 # --- THE MASTER TABS ---
@@ -38,15 +46,33 @@ tab1, tab2 = st.tabs(["Data & Extremes 📁", "Charts & Visualizations 📈"])
 with tab1:
     st.subheader("Raw Data Table")
     
-    # --- THE BULLETPROOF S.NO FIX ---
     display_data = filtered_data.copy()
-    # Create a brand new column named 'S.No' and put it at position 0 (the very front)
-    # It counts from 1 to however many rows exist after filtering
     display_data.insert(0, 'S.No', range(1, len(display_data) + 1))
     
-    # hide_index=True tells Streamlit to hide its own ugly row numbers
-    st.dataframe(display_data, hide_index=True, use_container_width=True)
-    # --------------------------------
+    # --- NEW ATTRACTIVE FEATURE 2 & 3: TABLE STYLING ---
+    st.dataframe(
+        display_data, 
+        hide_index=True, 
+        use_container_width=True,
+        column_config={
+            "IMDB Rating": st.column_config.ProgressColumn(
+                "IMDB Rating",
+                help="The movie's rating out of 10",
+                format="%f",
+                min_value=0,
+                max_value=10,
+            ),
+            "Votes": st.column_config.NumberColumn(
+                "Total Votes",
+                help="Number of votes on IMDB",
+                format="%d 🗳️",
+            ),
+            "Duration": st.column_config.NumberColumn(
+                "Duration (mins)",
+                format="%d ⏱️"
+            )
+        }
+    )
     
     st.divider()
     
@@ -79,7 +105,6 @@ with tab2:
     
     st.divider()
 
-    # Top 10 Charts
     col1, col2 = st.columns(2)
     with col1:
         st.subheader("Top 10 Movies by Rating")
@@ -91,7 +116,6 @@ with tab2:
         top_votes = filtered_data.nlargest(10, 'Votes')
         st.bar_chart(top_votes, x="Movie Title", y="Votes")
 
-    # Genre Charts
     col3, col4 = st.columns(2)
     with col3:
         st.subheader("Genre Distribution")
@@ -106,6 +130,5 @@ with tab2:
 
     st.divider()
 
-    # Scatter Plot
     st.subheader("Rating vs. Voting Counts (Correlation)")
     st.scatter_chart(filtered_data, x="IMDB Rating", y="Votes")
