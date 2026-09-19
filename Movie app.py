@@ -84,15 +84,21 @@ st.divider()
 tab1, tab2 = st.tabs(["Data & Extremes 📁", "Visual Insights 📈"])
 
 # ---------------------------------------------------------
-# TAB 1: THE RAW DATA AND THE EXTREMES
+# TAB 1: THE RICH FIRST PAGE (TABLE, NEW COLUMN, & EXTREMES)
 # ---------------------------------------------------------
 with tab1:
-    st.subheader("Raw Data Table")
+    st.subheader("Raw Data Table & Financial Efficiency")
     
     display_data = filtered_data.copy()
+    
+    # --- NEW EXTRA COLUMN: REVENUE PER MINUTE ($K) ---
+    if not display_data.empty:
+        display_data['Rev/Min ($K)'] = ((display_data['Box Office'] * 1000) / display_data['Duration']).round(1)
+    else:
+        display_data['Rev/Min ($K)'] = []
+
     display_data.insert(0, 'S.No', range(1, len(display_data) + 1))
     
-    # Standard clean table without color formatting
     st.dataframe(
         display_data, 
         hide_index=True, 
@@ -119,6 +125,10 @@ with tab1:
             "Box Office": st.column_config.NumberColumn(
                 "Box Office",
                 format="$%d M 💰"
+            ),
+            "Rev/Min ($K)": st.column_config.NumberColumn(
+                "Rev/Min ($K)",
+                format="$%.1f K ⚡"
             )
         }
     )
@@ -134,6 +144,19 @@ with tab1:
     
     st.divider()
     
+    # --- ADDED CONTENT ON FIRST PAGE: GENRE QUICK SUMMARY ---
+    if not filtered_data.empty:
+        st.subheader("📋 Quick Breakdown by Genre")
+        genre_summary = filtered_data.groupby('Genre').agg(
+            Movie_Count=('Movie Title', 'count'),
+            Avg_Rating=('IMDB Rating', 'mean'),
+            Total_Revenue_M=('Box Office', 'sum')
+        ).reset_index()
+        genre_summary['Avg_Rating'] = genre_summary['Avg_Rating'].round(1)
+        st.dataframe(genre_summary, hide_index=True, use_container_width=True)
+        
+        st.divider()
+
     st.header("Dataset Highlights & Extremes")
     if not filtered_data.empty:
         highest_grossing = filtered_data.loc[filtered_data['Box Office'].idxmax()]
@@ -190,3 +213,12 @@ with tab2:
         
     else:
         st.warning("No records match your active parameters. Please broaden your filter criteria.")
+
+# --- PROFESSIONAL FOOTER AT THE VERY LAST ---
+st.markdown("---")
+st.markdown(
+    "<p style='text-align: center; color: gray; font-size: 14px;'>"
+    "Multi-Region Cinema Analytics Portal | Built with Python, Pandas & Streamlit | Professional Portfolio Edition"
+    "</p>", 
+    unsafe_allow_html=True
+)
