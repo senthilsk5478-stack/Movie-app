@@ -1,10 +1,10 @@
-Movie Title,Director,IMDB Rating,Year,Poster
-The Dark Knight,Christopher Nolan,9.0,2008,dark_knight.jpg
-Inception,Christopher Nolan,8.8,2010,https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg
-Dune,Denis Villeneuve,8.0,2021,dune.jpg
-Avatar,James Cameron,7.8,2009,avatar.jpg
-Iron Man,Jon Favreau,7.9,2008,https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_.jpg
-The Matrix,Lana Wachowski,8.7,1999,matrix.jpg
-Interstellar,Christopher Nolan,8.6,2014,interstellar.jpg
-The Avengers,Joss Whedon,8.0,2012,https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGc@._V1_.jpg
-Gladiator,Ridley Scott,8.5,2000,https://m.media-amazon.com/images/M/MV5BYWQ4YmNjYjEtOWE1Zi00Y2U4LWI4NTAtMTU0MjkxNWQ1ZmJiXkEyXkFqcGc@._V1_.jpg
+Movie Title,Director,IMDB Rating,Year
+The Dark Knight,Christopher Nolan,9.0,2008
+Inception,Christopher Nolan,8.8,2010
+Dune,Denis Villeneuve,8.0,2021
+Avatar,James Cameron,7.8,2009
+Iron Man,Jon Favreau,7.9,2008
+The Matrix,Lana Wachowski,8.7,1999
+Interstellar,Christopher Nolan,8.6,2014
+The Avengers,Joss Whedon,8.0,2012
+Gladiator,Ridley Scott,8.5,2000
