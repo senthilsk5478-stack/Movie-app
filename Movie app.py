@@ -84,26 +84,26 @@ st.divider()
 tab1, tab2 = st.tabs(["Data & Extremes 📁", "Visual Insights 📈"])
 
 # ---------------------------------------------------------
-# TAB 1: THE RICH FIRST PAGE (TABLE, RATING TIER, & EXTREMES)
+# TAB 1: THE RICH FIRST PAGE (TABLE, BOX OFFICE SCALE, & EXTREMES)
 # ---------------------------------------------------------
 with tab1:
-    st.subheader("Raw Data Table & Quality Badges")
+    st.subheader("Raw Data Table & Scale Categorization")
     
     display_data = filtered_data.copy()
     
-    # --- NEW EXTRA COLUMN: RATING TIER BADGE ---
-    def get_tier(rating):
-        if rating >= 8.5:
-            return "🌟 Masterpiece (8.5+)"
-        elif rating >= 8.0:
-            return "⭐ Blockbuster Hit (8.0+)"
+    # --- NEW TEXT-ONLY COLUMN: BOX OFFICE SCALE ---
+    def get_bo_scale(revenue):
+        if revenue >= 500:
+            return "Mega Blockbuster"
+        elif revenue >= 100:
+            return "Major Hit"
         else:
-            return "🎬 Recommended"
+            return "Standard Revenue"
 
     if not display_data.empty:
-        display_data['Rating Tier'] = display_data['IMDB Rating'].apply(get_tier)
+        display_data['Box Office Scale'] = display_data['Box Office'].apply(get_bo_scale)
     else:
-        display_data['Rating Tier'] = []
+        display_data['Box Office Scale'] = []
 
     display_data.insert(0, 'S.No', range(1, len(display_data) + 1))
     
@@ -134,8 +134,8 @@ with tab1:
                 "Box Office",
                 format="$%d M 💰"
             ),
-            "Rating Tier": st.column_config.TextColumn(
-                "Rating Tier 🏆"
+            "Box Office Scale": st.column_config.TextColumn(
+                "Box Office Scale"
             )
         }
     )
