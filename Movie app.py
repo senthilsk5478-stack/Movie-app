@@ -13,7 +13,7 @@ data = pd.read_csv("movies.csv")
 st.sidebar.header("Filter Movies 📊")
 st.sidebar.write("Use the controls below to refine the dataset.")
 
-search_term = st.sidebar.text_input("🔍 Search Title or Director:")
+search_term = st.sidebar.text_input("🔍 Search Title, Director, or Actor:")
 
 all_genres = sorted(data['Genre'].dropna().unique().tolist())
 selected_genres = st.sidebar.multiselect("🎭 Select Genre(s):", all_genres, placeholder="Choose genres...")
@@ -30,13 +30,118 @@ votes_range = st.sidebar.slider("🗳️ Voting Counts:", min_value=min_votes, m
 min_bo, max_bo = int(data['Box Office'].min()), int(data['Box Office'].max())
 bo_range = st.sidebar.slider("💰 Box Office ($ Millions):", min_value=min_bo, max_value=max_bo, value=(min_bo, max_bo))
 
+# --- ACTOR LOOKUP DICTIONARY ---
+actor_mapping = {
+    "The Dark Knight": "Christian Bale",
+    "Inception": "Leonardo DiCaprio",
+    "The Matrix": "Keanu Reeves",
+    "Interstellar": "Matthew McConaughey",
+    "Avatar": "Sam Worthington",
+    "Dune": "Timothée Chalamet",
+    "Gladiator": "Russell Crowe",
+    "The Godfather": "Marlon Brando",
+    "The Shawshank Redemption": "Tim Robbins",
+    "Pulp Fiction": "John Travolta",
+    "Forrest Gump": "Tom Hanks",
+    "Fight Club": "Brad Pitt",
+    "The Empire Strikes Back": "Mark Hamill",
+    "The Lord of the Rings: The Return of the King": "Elijah Wood",
+    "Star Wars": "Mark Hamill",
+    "The Silence of the Lambs": "Jodie Foster",
+    "Se7en": "Brad Pitt",
+    "Saving Private Ryan": "Tom Hanks",
+    "The Green Mile": "Tom Hanks",
+    "Terminator 2: Judgment Day": "Arnold Schwarzenegger",
+    "Back to the Future": "Michael J. Fox",
+    "Psycho": "Anthony Perkins",
+    "The Departed": "Leonardo DiCaprio",
+    "Whiplash": "Miles Teller",
+    "The Lion King": "Matthew Broderick",
+    "Alien": "Sigourney Weaver",
+    "Memento": "Guy Pearce",
+    "Apocalypse Now": "Martin Sheen",
+    "Raiders of the Lost Ark": "Harrison Ford",
+    "Joker": "Joaquin Phoenix",
+    "Vikram": "Kamal Haasan",
+    "Nayakan": "Kamal Haasan",
+    "Pariyerum Perumal": "Kathir",
+    "Kaithi": "Karthi",
+    "Asuran": "Dhanush",
+    "96": "Vijay Sethupathi",
+    "Thani Oruvan": "Jayam Ravi",
+    "Vada Chennai": "Dhanush",
+    "Super Deluxe": "Vijay Sethupathi",
+    "Ratsasan": "Vishnu Vishal",
+    "Jai Bhim": "Suriya",
+    "Karnan": "Dhanush",
+    "Anbe Sivam": "Kamal Haasan",
+    "Thevar Magan": "Kamal Haasan",
+    "Roja": "Arvind Swami",
+    "Bombay": "Arvind Swami",
+    "Baasha": "Rajinikanth",
+    "Mankatha": "Ajith Kumar",
+    "Vinnaithaandi Varuvaayaa": "Silambarasan",
+    "Sarpatta Parambarai": "Arya",
+    "Kumbalangi Nights": "Shane Nigam",
+    "Drishyam": "Mohanlal",
+    "Premam": "Nivin Pauly",
+    "Manjummel Boys": "Soubin Shahir",
+    "Aavesham": "Fahadh Faasil",
+    "Bangalore Days": "Dulquer Salmaan",
+    "Lucifer": "Mohanlal",
+    "Trance": "Fahadh Faasil",
+    "Angamaly Diaries": "Antony Varghese",
+    "Ayyappanum Koshiyum": "Prithviraj Sukumaran",
+    "Maheshinte Prathikaaram": "Fahadh Faasil",
+    "Thondimuthalum Driksakshiyum": "Fahadh Faasil",
+    "Ustad Hotel": "Dulquer Salmaan",
+    "Sudani from Nigeria": "Soubin Shahir",
+    "Joji": "Fahadh Faasil",
+    "Minnal Murali": "Tovino Thomas",
+    "Charlie": "Dulquer Salmaan",
+    "Mumbai Police": "Prithviraj Sukumaran",
+    "Memories": "Prithviraj Sukumaran",
+    "Churuli": "Chemban Vinod Jose",
+    "Baahubali: The Beginning": "Prabhas",
+    "Baahubali 2: The Conclusion": "Prabhas",
+    "RRR": "NTR Jr. & Ram Charan",
+    "Jersey": "Nani",
+    "Arjun Reddy": "Vijay Deverakonda",
+    "Eega": "Nani",
+    "Mahanati": "Keerthy Suresh",
+    "Pushpa: The Rise": "Allu Arjun",
+    "Ala Vaikunthapurramuloo": "Allu Arjun",
+    "Sita Ramam": "Dulquer Salmaan",
+    "Rangasthalam": "Ram Charan",
+    "Magadheera": "Ram Charan",
+    "Athadu": "Mahesh Babu",
+    "Pokiri": "Mahesh Babu",
+    "Bommarillu": "Siddharth",
+    "C/o Kancharapalem": "Subba Rao",
+    "Mathu Vadalara": "Sri Simha",
+    "Agent Sai Srinivasa Athreya": "Naveen Polishetty",
+    "Dangal": "Aamir Khan",
+    "3 Idiots": "Aamir Khan",
+    "Lagaan": "Aamir Khan",
+    "Sholay": "Amitabh Bachchan",
+    "Andhadhun": "Ayushmann Khurrana",
+    "Tumbbad": "Sohum Shah",
+    "K.G.F: Chapter 1": "Yash",
+    "Kantara": "Rishab Shetty",
+    "Parasite": "Song Kang-ho",
+    "Spirited Away": "Rumi Hiiragi",
+    "Spider-Man: Into the Spider-Verse": "Shameik Moore"
+}
+
 # 3. Apply the filters
 filtered_data = data.copy()
+filtered_data['Lead Actor'] = filtered_data['Movie Title'].map(actor_mapping).fillna('Ensemble Cast')
 
 if search_term:
     filtered_data = filtered_data[
         filtered_data['Movie Title'].str.contains(search_term, case=False) |
-        filtered_data['Director'].str.contains(search_term, case=False)
+        filtered_data['Director'].str.contains(search_term, case=False) |
+        filtered_data['Lead Actor'].str.contains(search_term, case=False)
     ]
 
 if selected_genres:
@@ -116,6 +221,9 @@ with tab1:
                 format="%f",
                 min_value=0,
                 max_value=10,
+            ),
+            "Lead Actor": st.column_config.TextColumn(
+                "Lead Actor"
             ),
             "Votes": st.column_config.NumberColumn(
                 "Total Votes",
