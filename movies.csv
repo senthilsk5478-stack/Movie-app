@@ -1,100 +1,100 @@
-Movie Title,Director,IMDB Rating,Year,Genre,Duration,Votes
-The Dark Knight,Christopher Nolan,9.0,2008,Action,152,2718000
-Inception,Christopher Nolan,8.8,2010,Sci-Fi,148,2412000
-The Matrix,Lana Wachowski,8.7,1999,Sci-Fi,136,1950000
-Interstellar,Christopher Nolan,8.6,2014,Sci-Fi,169,1915000
-Avatar,James Cameron,7.8,2009,Sci-Fi,162,1340000
-Dune,Denis Villeneuve,8.0,2021,Sci-Fi,155,705000
-Gladiator,Ridley Scott,8.5,2000,Action,155,1530000
-The Godfather,Francis Ford Coppola,9.2,1972,Crime,175,1900000
-The Shawshank Redemption,Frank Darabont,9.3,1994,Drama,142,2740000
-Pulp Fiction,Quentin Tarantino,8.9,1994,Crime,154,2100000
-Forrest Gump,Robert Zemeckis,8.8,1994,Drama,142,2130000
-Fight Club,David Fincher,8.8,1999,Drama,139,2180000
-The Empire Strikes Back,Irvin Kershner,8.7,1980,Sci-Fi,124,1320000
-The Lord of the Rings: The Return of the King,Peter Jackson,9.0,2003,Fantasy,201,1880000
-Star Wars,George Lucas,8.6,1977,Sci-Fi,121,1390000
-The Silence of the Lambs,Jonathan Demme,8.6,1991,Thriller,118,1460000
-Se7en,David Fincher,8.6,1995,Thriller,127,1690000
-Saving Private Ryan,Steven Spielberg,8.6,1998,Drama,169,1420000
-The Green Mile,Frank Darabont,8.6,1999,Drama,189,1330000
-Terminator 2: Judgment Day,James Cameron,8.6,1991,Action,137,1120000
-Back to the Future,Robert Zemeckis,8.5,1985,Sci-Fi,116,1230000
-Psycho,Alfred Hitchcock,8.5,1960,Horror,109,680000
-The Departed,Martin Scorsese,8.5,2006,Crime,151,1350000
-Whiplash,Damien Chazelle,8.5,2014,Drama,106,900000
-The Lion King,Roger Allers,8.5,1994,Animation,89,1080000
-Alien,Ridley Scott,8.5,1979,Horror,117,900000
-Memento,Christopher Nolan,8.4,2000,Thriller,113,1260000
-Apocalypse Now,Francis Ford Coppola,8.4,1979,Drama,147,680000
-Raiders of the Lost Ark,Steven Spielberg,8.4,1981,Action,115,980000
-Joker,Todd Phillips,8.4,2019,Drama,122,1350000
-Vikram,Lokesh Kanagaraj,8.3,2022,Action,175,75000
-Nayakan,Mani Ratnam,8.7,1987,Crime,145,23000
-Pariyerum Perumal,Mari Selvaraj,8.7,2018,Drama,154,21000
-Kaithi,Lokesh Kanagaraj,8.5,2019,Action,145,40000
-Asuran,Vetrimaaran,8.4,2019,Action,141,35000
-96,C. Prem Kumar,8.5,2018,Romance,158,33000
-Thani Oruvan,Mohan Raja,8.4,2015,Thriller,160,25000
-Vada Chennai,Vetrimaaran,8.4,2018,Crime,164,30000
-Super Deluxe,Thiagarajan Kumararaja,8.3,2019,Comedy,176,22000
-Ratsasan,Ram Kumar,8.3,2018,Thriller,170,38000
-Jai Bhim,T.J. Gnanavel,8.8,2021,Drama,164,210000
-Karnan,Mari Selvaraj,8.0,2021,Action,158,25000
-Anbe Sivam,Sundar C.,8.6,2003,Drama,160,22000
-Thevar Magan,Bharathan,8.4,1992,Drama,145,10000
-Roja,Mani Ratnam,8.1,1992,Romance,137,13000
-Bombay,Mani Ratnam,8.1,1995,Drama,141,12000
-Baasha,Suresh Krissna,8.3,1995,Action,145,11000
-Mankatha,Venkat Prabhu,7.6,2011,Action,155,20000
-Vinnaithaandi Varuvaayaa,Gautham Vasudev Menon,8.1,2010,Romance,167,16000
-Sarpatta Parambarai,Pa. Ranjith,8.6,2021,Action,173,28000
-Kumbalangi Nights,Madhu C. Narayanan,8.5,2019,Drama,135,20000
-Drishyam,Jeethu Joseph,8.3,2013,Thriller,160,45000
-Premam,Alphonse Puthren,8.3,2015,Romance,156,35000
-Manjummel Boys,Chidambaram,8.6,2024,Thriller,135,15000
-Aavesham,Jithu Madhavan,8.3,2024,Comedy,158,20000
-Bangalore Days,Anjali Menon,8.3,2014,Comedy,171,23000
-Lucifer,Prithviraj Sukumaran,7.5,2019,Action,175,25000
-Trance,Anwar Rasheed,7.3,2020,Drama,170,12000
-Angamaly Diaries,Lijo Jose Pellissery,7.9,2017,Crime,132,10000
-Ayyappanum Koshiyum,Sachy,8.0,2020,Action,177,18000
-Maheshinte Prathikaaram,Dileesh Pothan,8.3,2016,Comedy,120,13000
-Thondimuthalum Driksakshiyum,Dileesh Pothan,8.1,2017,Comedy,135,11000
-Ustad Hotel,Anwar Rasheed,8.2,2012,Drama,150,15000
-Sudani from Nigeria,Zakariya Mohammed,8.2,2018,Comedy,120,9000
-Joji,Dileesh Pothan,7.8,2021,Crime,113,12000
-Minnal Murali,Basil Joseph,7.8,2021,Action,158,35000
-Charlie,Martin Prakkat,8.0,2015,Drama,130,17000
-Mumbai Police,Rosshan Andrrews,8.0,2013,Thriller,145,10000
-Memories,Jeethu Joseph,8.0,2013,Thriller,144,8000
-Churuli,Lijo Jose Pellissery,7.4,2021,Mystery,114,6000
-Baahubali: The Beginning,S.S. Rajamouli,8.0,2015,Action,159,140000
-Baahubali 2: The Conclusion,S.S. Rajamouli,8.2,2017,Action,167,105000
-RRR,S.S. Rajamouli,7.8,2022,Action,187,135000
-Jersey,Gowtam Tinnanuri,8.5,2019,Drama,157,20000
-Arjun Reddy,Sandeep Reddy Vanga,7.9,2017,Drama,182,30000
-Eega,S.S. Rajamouli,7.7,2012,Fantasy,145,25000
-Mahanati,Nag Ashwin,8.5,2018,Drama,177,18000
-Pushpa: The Rise,Sukumar,7.6,2021,Action,179,50000
-Ala Vaikunthapurramuloo,Trivikram Srinivas,7.3,2020,Comedy,165,22000
-Sita Ramam,Hanu Raghavapudi,8.6,2022,Romance,163,65000
-Rangasthalam,Sukumar,8.2,2018,Action,170,28000
-Magadheera,S.S. Rajamouli,7.7,2009,Action,164,15000
-Athadu,Trivikram Srinivas,8.2,2005,Action,172,17000
-Pokiri,Puri Jagannadh,8.0,2006,Action,164,14000
-Bommarillu,Bhaskar,8.1,2006,Romance,170,11000
-C/o Kancharapalem,Venkatesh Maha,8.9,2018,Drama,152,9000
-Mathu Vadalara,Ritesh Rana,8.2,2019,Comedy,130,5000
-Agent Sai Srinivasa Athreya,Swaroop Rsj,8.3,2019,Comedy,145,10000
-Dangal,Nitesh Tiwari,8.3,2016,Action,161,205000
-3 Idiots,Rajkumar Hirani,8.4,2009,Comedy,170,420000
-Lagaan,Ashutosh Gowariker,8.1,2001,Drama,224,118000
-Sholay,Ramesh Sippy,8.1,1975,Action,204,57000
-Andhadhun,Sriram Raghavan,8.2,2018,Thriller,139,105000
-Tumbbad,Rahi Anil Barve,8.2,2018,Horror,104,55000
-K.G.F: Chapter 1,Prashanth Neel,8.2,2018,Action,156,95000
-Kantara,Rishab Shetty,8.2,2022,Action,148,100000
-Parasite,Bong Joon Ho,8.5,2019,Thriller,132,850000
-Spirited Away,Hayao Miyazaki,8.6,2001,Animation,125,790000
-Spider-Man: Into the Spider-Verse,Bob Persichetti,8.4,2018,Animation,117,580000
+Movie Title,Director,IMDB Rating,Year,Genre,Duration,Votes,Box Office
+The Dark Knight,Christopher Nolan,9.0,2008,Action,152,2718000,1005
+Inception,Christopher Nolan,8.8,2010,Sci-Fi,148,2412000,837
+The Matrix,Lana Wachowski,8.7,1999,Sci-Fi,136,1950000,467
+Interstellar,Christopher Nolan,8.6,2014,Sci-Fi,169,1915000,773
+Avatar,James Cameron,7.8,2009,Sci-Fi,162,1340000,2923
+Dune,Denis Villeneuve,8.0,2021,Sci-Fi,155,705000,402
+Gladiator,Ridley Scott,8.5,2000,Action,155,1530000,460
+The Godfather,Francis Ford Coppola,9.2,1972,Crime,175,1900000,245
+The Shawshank Redemption,Frank Darabont,9.3,1994,Drama,142,2740000,28
+Pulp Fiction,Quentin Tarantino,8.9,1994,Crime,154,2100000,214
+Forrest Gump,Robert Zemeckis,8.8,1994,Drama,142,2130000,678
+Fight Club,David Fincher,8.8,1999,Drama,139,2180000,101
+The Empire Strikes Back,Irvin Kershner,8.7,1980,Sci-Fi,124,1320000,538
+The Lord of the Rings: The Return of the King,Peter Jackson,9.0,2003,Fantasy,201,1880000,1146
+Star Wars,George Lucas,8.6,1977,Sci-Fi,121,1390000,775
+The Silence of the Lambs,Jonathan Demme,8.6,1991,Thriller,118,1460000,272
+Se7en,David Fincher,8.6,1995,Thriller,127,1690000,327
+Saving Private Ryan,Steven Spielberg,8.6,1998,Drama,169,1420000,481
+The Green Mile,Frank Darabont,8.6,1999,Drama,189,1330000,286
+Terminator 2: Judgment Day,James Cameron,8.6,1991,Action,137,1120000,520
+Back to the Future,Robert Zemeckis,8.5,1985,Sci-Fi,116,1230000,381
+Psycho,Alfred Hitchcock,8.5,1960,Horror,109,680000,32
+The Departed,Martin Scorsese,8.5,2006,Crime,151,1350000,291
+Whiplash,Damien Chazelle,8.5,2014,Drama,106,900000,49
+The Lion King,Roger Allers,8.5,1994,Animation,89,1080000,968
+Alien,Ridley Scott,8.5,1979,Horror,117,900000,108
+Memento,Christopher Nolan,8.4,2000,Thriller,113,1260000,40
+Apocalypse Now,Francis Ford Coppola,8.4,1979,Drama,147,680000,104
+Raiders of the Lost Ark,Steven Spielberg,8.4,1981,Action,115,980000,389
+Joker,Todd Phillips,8.4,2019,Drama,122,1350000,1074
+Vikram,Lokesh Kanagaraj,8.3,2022,Action,175,75000,60
+Nayakan,Mani Ratnam,8.7,1987,Crime,145,23000,5
+Pariyerum Perumal,Mari Selvaraj,8.7,2018,Drama,154,21000,3
+Kaithi,Lokesh Kanagaraj,8.5,2019,Action,145,40000,14
+Asuran,Vetrimaaran,8.4,2019,Action,141,35000,20
+96,C. Prem Kumar,8.5,2018,Romance,158,33000,7
+Thani Oruvan,Mohan Raja,8.4,2015,Thriller,160,25000,15
+Vada Chennai,Vetrimaaran,8.4,2018,Crime,164,30000,9
+Super Deluxe,Thiagarajan Kumararaja,8.3,2019,Comedy,176,22000,4
+Ratsasan,Ram Kumar,8.3,2018,Thriller,170,38000,12
+Jai Bhim,T.J. Gnanavel,8.8,2021,Drama,164,210000,6
+Karnan,Mari Selvaraj,8.0,2021,Action,158,25000,8
+Anbe Sivam,Sundar C.,8.6,2003,Drama,160,22000,2
+Thevar Magan,Bharathan,8.4,1992,Drama,145,10000,3
+Roja,Mani Ratnam,8.1,1992,Romance,137,13000,4
+Bombay,Mani Ratnam,8.1,1995,Drama,141,12000,5
+Baasha,Suresh Krissna,8.3,1995,Action,145,11000,6
+Mankatha,Venkat Prabhu,7.6,2011,Action,155,20000,17
+Vinnaithaandi Varuvaayaa,Gautham Vasudev Menon,8.1,2010,Romance,167,16000,10
+Sarpatta Parambarai,Pa. Ranjith,8.6,2021,Action,173,28000,5
+Kumbalangi Nights,Madhu C. Narayanan,8.5,2019,Drama,135,20000,5
+Drishyam,Jeethu Joseph,8.3,2013,Thriller,160,45000,10
+Premam,Alphonse Puthren,8.3,2015,Romance,156,35000,11
+Manjummel Boys,Chidambaram,8.6,2024,Thriller,135,15000,29
+Aavesham,Jithu Madhavan,8.3,2024,Comedy,158,20000,18
+Bangalore Days,Anjali Menon,8.3,2014,Comedy,171,23000,6
+Lucifer,Prithviraj Sukumaran,7.5,2019,Action,175,25000,16
+Trance,Anwar Rasheed,7.3,2020,Drama,170,12000,4
+Angamaly Diaries,Lijo Jose Pellissery,7.9,2017,Crime,132,10000,3
+Ayyappanum Koshiyum,Sachy,8.0,2020,Action,177,18000,7
+Maheshinte Prathikaaram,Dileesh Pothan,8.3,2016,Comedy,120,13000,3
+Thondimuthalum Driksakshiyum,Dileesh Pothan,8.1,2017,Comedy,135,11000,4
+Ustad Hotel,Anwar Rasheed,8.2,2012,Drama,150,15000,4
+Sudani from Nigeria,Zakariya Mohammed,8.2,2018,Comedy,120,9000,3
+Joji,Dileesh Pothan,7.8,2021,Crime,113,12000,2
+Minnal Murali,Basil Joseph,7.8,2021,Action,158,35000,8
+Charlie,Martin Prakkat,8.0,2015,Drama,130,17000,6
+Mumbai Police,Rosshan Andrrews,8.0,2013,Thriller,145,10000,3
+Memories,Jeethu Joseph,8.0,2013,Thriller,144,8000,3
+Churuli,Lijo Jose Pellissery,7.4,2021,Mystery,114,6000,1
+Baahubali: The Beginning,S.S. Rajamouli,8.0,2015,Action,159,140000,80
+Baahubali 2: The Conclusion,S.S. Rajamouli,8.2,2017,Action,167,105000,225
+RRR,S.S. Rajamouli,7.8,2022,Action,187,135000,160
+Jersey,Gowtam Tinnanuri,8.5,2019,Drama,157,20000,7
+Arjun Reddy,Sandeep Reddy Vanga,7.9,2017,Drama,182,30000,8
+Eega,S.S. Rajamouli,7.7,2012,Fantasy,145,25000,19
+Mahanati,Nag Ashwin,8.5,2018,Drama,177,18000,11
+Pushpa: The Rise,Sukumar,7.6,2021,Action,179,50000,46
+Ala Vaikunthapurramuloo,Trivikram Srinivas,7.3,2020,Comedy,165,22000,35
+Sita Ramam,Hanu Raghavapudi,8.6,2022,Romance,163,65000,12
+Rangasthalam,Sukumar,8.2,2018,Action,170,28000,29
+Magadheera,S.S. Rajamouli,7.7,2009,Action,164,15000,18
+Athadu,Trivikram Srinivas,8.2,2005,Action,172,17000,4
+Pokiri,Puri Jagannadh,8.0,2006,Action,164,14000,8
+Bommarillu,Bhaskar,8.1,2006,Romance,170,11000,3
+C/o Kancharapalem,Venkatesh Maha,8.9,2018,Drama,152,9000,1
+Mathu Vadalara,Ritesh Rana,8.2,2019,Comedy,130,5000,1
+Agent Sai Srinivasa Athreya,Swaroop Rsj,8.3,2019,Comedy,145,10000,3
+Dangal,Nitesh Tiwari,8.3,2016,Action,161,205000,330
+3 Idiots,Rajkumar Hirani,8.4,2009,Comedy,170,420000,90
+Lagaan,Ashutosh Gowariker,8.1,2001,Drama,224,118000,10
+Sholay,Ramesh Sippy,8.1,1975,Action,204,57000,5
+Andhadhun,Sriram Raghavan,8.2,2018,Thriller,139,105000,60
+Tumbbad,Rahi Anil Barve,8.2,2018,Horror,104,55000,2
+K.G.F: Chapter 1,Prashanth Neel,8.2,2018,Action,156,95000,32
+Kantara,Rishab Shetty,8.2,2022,Action,148,100000,50
+Parasite,Bong Joon Ho,8.5,2019,Thriller,132,850000,262
+Spirited Away,Hayao Miyazaki,8.6,2001,Animation,125,790000,395
+Spider-Man: Into the Spider-Verse,Bob Persichetti,8.4,2018,Animation,117,580000,384
