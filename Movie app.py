@@ -13,3 +13,12 @@ data = pd.DataFrame({
 st.dataframe(data)
 st.subheader("Movie Ratings Chart")
 st.bar_chart(data, x="Movie Title", y="IMDB Rating")
+
+# Create a sidebar
+st.sidebar.header("User Controls")
+
+# Add a slider widget to the sidebar
+user_rating = st.sidebar.slider("Rate your favorite movie out of 10:", 0.0, 10.0, 5.0)
+
+# Display the result in the main app
+st.write(f"**You selected a rating of:** {user_rating}")
