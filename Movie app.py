@@ -8,23 +8,54 @@ st.title("My Ultimate Movie Dashboard 🎬")
 # 1. Load data
 data = pd.read_csv("movies.csv")
 
-# 2. Sidebar Controls
-st.sidebar.header("Filter Options")
-search_term = st.sidebar.text_input("Search for a Movie, Director, or Genre:")
-min_rating = st.sidebar.slider("Minimum IMDB Rating:", 0.0, 10.0, 7.0)
+# --- NEW ATTRACTIVE FEATURE: ADVANCED SIDEBAR FILTERS ---
+st.sidebar.header("Filter Movies 📊")
+st.sidebar.write("Use the controls below to refine the dataset.")
 
-# 3. Filter data
-filtered_data = data[data['IMDB Rating'] >= min_rating]
+# A quick text search at the top
+search_term = st.sidebar.text_input("🔍 Search Title or Director:")
+
+# Dynamic Genre Multi-Select
+all_genres = sorted(data['Genre'].dropna().unique().tolist())
+selected_genres = st.sidebar.multiselect("🎭 Select Genre(s):", all_genres, placeholder="Choose genres...")
+
+# Dynamic Range Sliders (Calculates exact min and max from your data)
+min_rating, max_rating = float(data['IMDB Rating'].min()), float(data['IMDB Rating'].max())
+rating_range = st.sidebar.slider("⭐ Rating Range:", min_value=0.0, max_value=10.0, value=(min_rating, max_rating), step=0.1)
+
+min_dur, max_dur = int(data['Duration'].min()), int(data['Duration'].max())
+duration_range = st.sidebar.slider("⏱️ Duration (minutes):", min_value=min_dur, max_value=max_dur, value=(min_dur, max_dur))
+
+min_votes, max_votes = int(data['Votes'].min()), int(data['Votes'].max())
+votes_range = st.sidebar.slider("🗳️ Voting Counts:", min_value=min_votes, max_value=max_votes, value=(min_votes, max_votes), step=1000)
+
+# 3. Apply the filters to the data
+filtered_data = data.copy()
+
 if search_term:
     filtered_data = filtered_data[
         filtered_data['Movie Title'].str.contains(search_term, case=False) |
-        filtered_data['Director'].str.contains(search_term, case=False) |
-        filtered_data['Genre'].str.contains(search_term, case=False)
+        filtered_data['Director'].str.contains(search_term, case=False)
     ]
 
-filtered_data = filtered_data.sort_values(by="IMDB Rating", ascending=False)
+# If the user selected specific genres, filter them. If empty, show all.
+if selected_genres:
+    filtered_data = filtered_data[filtered_data['Genre'].isin(selected_genres)]
 
-# --- NEW ATTRACTIVE FEATURE 1: DASHBOARD METRICS ---
+# Apply the slider ranges
+filtered_data = filtered_data[
+    (filtered_data['IMDB Rating'] >= rating_range[0]) & (filtered_data['IMDB Rating'] <= rating_range[1]) &
+    (filtered_data['Duration'] >= duration_range[0]) & (filtered_data['Duration'] <= duration_range[1]) &
+    (filtered_data['Votes'] >= votes_range[0]) & (filtered_data['Votes'] <= votes_range[1])
+]
+
+filtered_data = filtered_data.sort_values(by="IMDB Rating", ascending=False)
+# --------------------------------------------------------
+
+# 4. Top Summary Text
+st.write(f"**Displaying {len(filtered_data)} movies matching your criteria (out of {len(data)} total movies).**")
+
+# Dashboard Metrics
 col1, col2, col3 = st.columns(3)
 with col1:
     st.metric("Total Movies Found", len(filtered_data))
@@ -49,7 +80,6 @@ with tab1:
     display_data = filtered_data.copy()
     display_data.insert(0, 'S.No', range(1, len(display_data) + 1))
     
-    # --- NEW ATTRACTIVE FEATURE 2 & 3: TABLE STYLING ---
     st.dataframe(
         display_data, 
         hide_index=True, 
@@ -100,35 +130,38 @@ with tab1:
 # TAB 2: ALL OF THE CHARTS
 # ---------------------------------------------------------
 with tab2:
-    st.subheader("Basic Rating Chart")
-    st.bar_chart(filtered_data, x="Movie Title", y="IMDB Rating")
-    
-    st.divider()
+    if not filtered_data.empty:
+        st.subheader("Basic Rating Chart")
+        st.bar_chart(filtered_data, x="Movie Title", y="IMDB Rating")
+        
+        st.divider()
 
-    col1, col2 = st.columns(2)
-    with col1:
-        st.subheader("Top 10 Movies by Rating")
-        top_rating = filtered_data.nlargest(10, 'IMDB Rating')
-        st.bar_chart(top_rating, x="Movie Title", y="IMDB Rating")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.subheader("Top 10 Movies by Rating")
+            top_rating = filtered_data.nlargest(10, 'IMDB Rating')
+            st.bar_chart(top_rating, x="Movie Title", y="IMDB Rating")
 
-    with col2:
-        st.subheader("Top 10 Movies by Voting Counts")
-        top_votes = filtered_data.nlargest(10, 'Votes')
-        st.bar_chart(top_votes, x="Movie Title", y="Votes")
+        with col2:
+            st.subheader("Top 10 Movies by Voting Counts")
+            top_votes = filtered_data.nlargest(10, 'Votes')
+            st.bar_chart(top_votes, x="Movie Title", y="Votes")
 
-    col3, col4 = st.columns(2)
-    with col3:
-        st.subheader("Genre Distribution")
-        genre_counts = filtered_data['Genre'].value_counts().reset_index()
-        genre_counts.columns = ['Genre', 'Count']
-        st.bar_chart(genre_counts, x="Genre", y="Count")
+        col3, col4 = st.columns(2)
+        with col3:
+            st.subheader("Genre Distribution")
+            genre_counts = filtered_data['Genre'].value_counts().reset_index()
+            genre_counts.columns = ['Genre', 'Count']
+            st.bar_chart(genre_counts, x="Genre", y="Count")
 
-    with col4:
-        st.subheader("Average Duration by Genre")
-        avg_duration = filtered_data.groupby('Genre')['Duration'].mean().reset_index()
-        st.bar_chart(avg_duration, x="Genre", y="Duration")
+        with col4:
+            st.subheader("Average Duration by Genre")
+            avg_duration = filtered_data.groupby('Genre')['Duration'].mean().reset_index()
+            st.bar_chart(avg_duration, x="Genre", y="Duration")
 
-    st.divider()
+        st.divider()
 
-    st.subheader("Rating vs. Voting Counts (Correlation)")
-    st.scatter_chart(filtered_data, x="IMDB Rating", y="Votes")
+        st.subheader("Rating vs. Voting Counts (Correlation)")
+        st.scatter_chart(filtered_data, x="IMDB Rating", y="Votes")
+    else:
+        st.warning("No movies match your current filters. Adjust the sliders to see charts!")
