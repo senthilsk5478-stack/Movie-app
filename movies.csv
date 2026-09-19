@@ -1,11 +1,10 @@
-
-Movie Title,Director,IMDB Rating,Year
-The Dark Knight,Christopher Nolan,9.0,2008
-Inception,Christopher Nolan,8.8,2010
-Dune,Denis Villeneuve,8.0,2021
-Avatar,James Cameron,7.8,2009
-Iron Man,Jon Favreau,7.9,2008
-The Matrix,Lana Wachowski,8.7,1999
-Interstellar,Christopher Nolan,8.6,2014
-The Avengers,Joss Whedon,8.0,2012
-Gladiator,Ridley Scott,8.5,2000
+Movie Title,Director,IMDB Rating,Year,Poster
+The Dark Knight,Christopher Nolan,9.0,2008,https://dummyimage.com/150x225/000/fff&text=Dark+Knight
+Inception,Christopher Nolan,8.8,2010,https://dummyimage.com/150x225/000/fff&text=Inception
+Dune,Denis Villeneuve,8.0,2021,https://dummyimage.com/150x225/000/fff&text=Dune
+Avatar,James Cameron,7.8,2009,https://dummyimage.com/150x225/000/fff&text=Avatar
+Iron Man,Jon Favreau,7.9,2008,https://dummyimage.com/150x225/000/fff&text=Iron+Man
+The Matrix,Lana Wachowski,8.7,1999,https://dummyimage.com/150x225/000/fff&text=The+Matrix
+Interstellar,Christopher Nolan,8.6,2014,https://dummyimage.com/150x225/000/fff&text=Interstellar
+The Avengers,Joss Whedon,8.0,2012,https://dummyimage.com/150x225/000/fff&text=The+Avengers
+Gladiator,Ridley Scott,8.5,2000,https://dummyimage.com/150x225/000/fff&text=Gladiator
