@@ -92,8 +92,19 @@ with tab1:
     display_data = filtered_data.copy()
     display_data.insert(0, 'S.No', range(1, len(display_data) + 1))
     
+    # --- NEW ATTRACTIVE FEATURE: CONDITIONAL TABLE STYLING ---
+    def highlight_top_movies(s):
+        # Highlights movies with a rating of 8.5 or higher in soft green
+        return ['background-color: #d4edda' if val >= 8.5 else '' for val in s]
+
+    # Apply the styling only if the table isn't empty
+    if not display_data.empty:
+        styled_table = display_data.style.apply(highlight_top_movies, subset=['IMDB Rating'])
+    else:
+        styled_table = display_data
+
     st.dataframe(
-        display_data, 
+        styled_table, 
         hide_index=True, 
         use_container_width=True,
         column_config={
@@ -152,12 +163,10 @@ with tab1:
             st.info(f"**Longest Film:** {longest['Movie Title']} ({longest['Duration']} mins)")
 
 # ---------------------------------------------------------
-# TAB 2: VISUAL INSIGHTS (GRIDS FIRST, LINE CHART AT THE BOTTOM)
+# TAB 2: VISUAL INSIGHTS
 # ---------------------------------------------------------
 with tab2:
     if not filtered_data.empty:
-        
-        # Row 1: Top Rated vs Top Revenue Side-by-Side
         col1, col2 = st.columns(2)
         with col1:
             st.subheader("🌟 Top 10 Rated Films")
@@ -171,7 +180,6 @@ with tab2:
         
         st.divider()
 
-        # Row 2: Genre Breakdown vs Audience Votes Side-by-Side
         col3, col4 = st.columns(2)
         with col3:
             st.subheader("🎭 Genre Variety Breakdown")
@@ -186,7 +194,6 @@ with tab2:
 
         st.divider()
 
-        # --- THE MONITOR-STYLE LINE CHART MOVED TO THE BOTTOM ---
         st.subheader("📊 Historical Quality Trajectory: Average IMDB Rating by Release Year")
         yearly_trend = filtered_data.groupby('Year')['IMDB Rating'].mean().reset_index()
         st.line_chart(yearly_trend, x="Year", y="IMDB Rating", color="#1f77b4")
