@@ -27,8 +27,27 @@ if search_term:
 # 5. Sort the movies from highest rating to lowest
 filtered_data = filtered_data.sort_values(by="IMDB Rating", ascending=False)
 
+# --- NEW FEATURE: DASHBOARD METRICS ---
+st.subheader("Dashboard Summary")
+
+# Create 3 columns for our metric widgets
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.metric("Total Movies Found", len(filtered_data))
+with col2:
+    # Calculate the average rating of the filtered movies
+    avg_rating = round(filtered_data['IMDB Rating'].mean(), 1)
+    st.metric("Average Rating", avg_rating)
+with col3:
+    # Find the highest rating in the filtered list
+    highest_rating = filtered_data['IMDB Rating'].max()
+    st.metric("Highest Rating", highest_rating)
+    
+st.divider() # Adds a clean visual separator line
+# --------------------------------------
+
 # 6. Display the table and chart
-st.write(f"Found {len(filtered_data)} movies:")
 st.dataframe(filtered_data, use_container_width=True)
 
 st.subheader("Movie Ratings Chart")
