@@ -3,7 +3,8 @@ import pandas as pd
 
 st.set_page_config(layout="wide") 
 
-st.title("My Ultimate Movie Dashboard 🎬")
+# --- UNIQUE APP TITLE ---
+st.title("Global Cinema Intelligence Hub 🎬")
 
 # 1. Load data
 data = pd.read_csv("movies.csv")
@@ -50,19 +51,17 @@ filtered_data = filtered_data[
 
 filtered_data = filtered_data.sort_values(by="IMDB Rating", ascending=False)
 
-# --- NEW FEATURE: KPI DELTAS (Green & Red Arrows) ---
-st.write(f"**Displaying {len(filtered_data)} movies matching your criteria (out of {len(data)} total movies).**")
+# --- UNIQUE SUMMARY TEXT & KPI DELTAS ---
+st.write(f"**Filtered View: Showing {len(filtered_data)} cinematic records matching your parameters (out of {len(data)} total records).**")
 
-# Step A: Calculate the global averages of the entire database first
 global_avg_rating = data['IMDB Rating'].mean()
 global_avg_votes = data['Votes'].mean()
 global_avg_bo = data['Box Office'].mean()
 
-# Step B: Compare the filtered data against the global averages
 col1, col2, col3, col4 = st.columns(4)
 with col1:
     movies_diff = len(filtered_data) - len(data)
-    st.metric("Total Movies Found", len(filtered_data), delta=f"{movies_diff} from total", delta_color="off")
+    st.metric("Total Records Found", len(filtered_data), delta=f"{movies_diff} from total", delta_color="off")
     
 with col2:
     filtered_avg_rating = filtered_data['IMDB Rating'].mean() if not filtered_data.empty else 0
@@ -77,7 +76,7 @@ with col3:
 with col4:
     filtered_avg_bo = filtered_data['Box Office'].mean() if not filtered_data.empty else 0
     bo_delta = filtered_avg_bo - global_avg_bo
-    st.metric("Avg Box Office", f"${filtered_avg_bo:,.0f}M", delta=f"{bo_delta:,.0f}M")
+    st.metric("Avg Revenue", f"${filtered_avg_bo:,.0f}M", delta=f"{bo_delta:,.0f}M")
     
 st.divider()
 
@@ -126,7 +125,7 @@ with tab1:
     if not filtered_data.empty:
         csv = display_data.to_csv(index=False)
         st.download_button(
-            label="📥 Download Filtered Data as CSV",
+            label="📥 Download Filtered Dataset as CSV",
             data=csv,
             file_name="filtered_movies.csv",
             mime="text/csv",
@@ -139,7 +138,7 @@ with tab1:
         highest_grossing = filtered_data.loc[filtered_data['Box Office'].idxmax()]
         
         st.subheader("💰 Revenue Extremes")
-        st.success(f"**Highest Grossing Movie:** {highest_grossing['Movie Title']} (${highest_grossing['Box Office']} Million)")
+        st.success(f"**Highest Grossing Film:** {highest_grossing['Movie Title']} (${highest_grossing['Box Office']} Million)")
         st.write("")
 
         shortest = filtered_data.loc[filtered_data['Duration'].idxmin()]
@@ -148,9 +147,9 @@ with tab1:
         st.subheader("⏱️ Duration Extremes")
         ext1, ext2 = st.columns(2)
         with ext1:
-            st.info(f"**Shortest Movie:** {shortest['Movie Title']} ({shortest['Duration']} mins)")
+            st.info(f"**Shortest Film:** {shortest['Movie Title']} ({shortest['Duration']} mins)")
         with ext2:
-            st.info(f"**Longest Movie:** {longest['Movie Title']} ({longest['Duration']} mins)")
+            st.info(f"**Longest Film:** {longest['Movie Title']} ({longest['Duration']} mins)")
             
         st.write("")
 
@@ -160,16 +159,16 @@ with tab1:
         st.subheader("📅 Age Extremes")
         ext3, ext4 = st.columns(2)
         with ext3:
-            st.info(f"**Oldest Movie:** {oldest['Movie Title']} ({oldest['Year']})")
+            st.info(f"**Oldest Film:** {oldest['Movie Title']} ({oldest['Year']})")
         with ext4:
-            st.info(f"**Newest Movie:** {newest['Movie Title']} ({newest['Year']})")
+            st.info(f"**Newest Film:** {newest['Movie Title']} ({newest['Year']})")
 
 # ---------------------------------------------------------
 # TAB 2: ALL OF THE CHARTS
 # ---------------------------------------------------------
 with tab2:
     if not filtered_data.empty:
-        st.subheader("💰 Top 10 Highest Grossing Movies")
+        st.subheader("💰 Top 10 Highest Grossing Films")
         top_revenue = filtered_data.nlargest(10, 'Box Office')
         st.bar_chart(top_revenue, x="Movie Title", y="Box Office", color="#28a745")
         
@@ -177,18 +176,18 @@ with tab2:
 
         col1, col2 = st.columns(2)
         with col1:
-            st.subheader("Top 10 Movies by Rating")
+            st.subheader("Top 10 Films by Rating")
             top_rating = filtered_data.nlargest(10, 'IMDB Rating')
             st.bar_chart(top_rating, x="Movie Title", y="IMDB Rating")
 
         with col2:
-            st.subheader("Top 10 Movies by Voting Counts")
+            st.subheader("Top 10 Films by Voting Volume")
             top_votes = filtered_data.nlargest(10, 'Votes')
             st.bar_chart(top_votes, x="Movie Title", y="Votes")
 
         col3, col4 = st.columns(2)
         with col3:
-            st.subheader("Genre Distribution")
+            st.subheader("Genre Distribution Breakdown")
             genre_counts = filtered_data['Genre'].value_counts().reset_index()
             genre_counts.columns = ['Genre', 'Count']
             st.bar_chart(genre_counts, x="Genre", y="Count")
@@ -200,7 +199,7 @@ with tab2:
 
         st.divider()
 
-        st.subheader("Rating vs. Box Office (Does high rating mean more money?)")
+        st.subheader("Rating vs. Box Office Correlation Analysis")
         st.scatter_chart(filtered_data, x="IMDB Rating", y="Box Office", color="#28a745")
     else:
-        st.warning("No movies match your current filters. Adjust the sliders to see charts!")
+        st.warning("No records match your active parameters. Please broaden your filter criteria.")
