@@ -84,14 +84,13 @@ st.divider()
 tab1, tab2 = st.tabs(["Data & Extremes 📁", "Visual Insights 📈"])
 
 # ---------------------------------------------------------
-# TAB 1: THE RICH FIRST PAGE (TABLE, BOX OFFICE SCALE, & EXTREMES)
+# TAB 1: THE RICH FIRST PAGE
 # ---------------------------------------------------------
 with tab1:
     st.subheader("Raw Data Table & Scale Categorization")
     
     display_data = filtered_data.copy()
     
-    # --- NEW TEXT-ONLY COLUMN: BOX OFFICE SCALE ---
     def get_bo_scale(revenue):
         if revenue >= 500:
             return "Mega Blockbuster"
@@ -120,11 +119,11 @@ with tab1:
             ),
             "Votes": st.column_config.NumberColumn(
                 "Total Votes",
-                format="%d 🗳️",
+                format="%d",
             ),
             "Duration": st.column_config.NumberColumn(
                 "Duration (mins)",
-                format="%d ⏱️"
+                format="%d mins"
             ),
             "Year": st.column_config.NumberColumn(
                 "Year",
@@ -132,7 +131,7 @@ with tab1:
             ),
             "Box Office": st.column_config.NumberColumn(
                 "Box Office",
-                format="$%d M 💰"
+                format="$%d M"
             ),
             "Box Office Scale": st.column_config.TextColumn(
                 "Box Office Scale"
