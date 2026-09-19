@@ -1,10 +1,10 @@
 Movie Title,Director,IMDB Rating,Year,Poster
-The Dark Knight,Christopher Nolan,9.0,2008,https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg
-Inception,Christopher Nolan,8.8,2010,https://image.tmdb.org/t/p/w500/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg
-Dune,Denis Villeneuve,8.0,2021,https://image.tmdb.org/t/p/w500/d5NXSklXoPeZyMWdiHQKCEzGcG.jpg
-Avatar,James Cameron,7.8,2009,https://image.tmdb.org/t/p/w500/kyeqWdy03NNDU6RZewn0aE30K3z.jpg
-Iron Man,Jon Favreau,7.9,2008,https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9O53WEK71kHl.jpg
-The Matrix,Lana Wachowski,8.7,1999,https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg
-Interstellar,Christopher Nolan,8.6,2014,https://image.tmdb.org/t/p/w500/gEU2QlsUUHXjNpeXac6ncnTsW5S.jpg
-The Avengers,Joss Whedon,8.0,2012,https://image.tmdb.org/t/p/w500/RYMX2wcKCBAr24UyPD7xwaYVk9.jpg
-Gladiator,Ridley Scott,8.5,2000,https://image.tmdb.org/t/p/w500/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg
+The Dark Knight,Christopher Nolan,9.0,2008,https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg
+Inception,Christopher Nolan,8.8,2010,https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg
+Dune,Denis Villeneuve,8.0,2021,https://m.media-amazon.com/images/M/MV5BN2FjNmEyNWMtMzM2NC00MDFiLTllZjMtOTgwZjQwNDFmZDNkXkEyXkFqcGc@._V1_.jpg
+Avatar,James Cameron,7.8,2009,https://m.media-amazon.com/images/M/MV5BMDEzZmM4YWMtMDRmYS00MWE5LTk5OWMtMmU0ZTI0ZmM2ZDQxXkEyXkFqcGc@._V1_.jpg
+Iron Man,Jon Favreau,7.9,2008,https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_.jpg
+The Matrix,Lana Wachowski,8.7,1999,https://m.media-amazon.com/images/M/MV5BN2NmN2VhMTctZWExZi00OThjLThhYjQtZWIxNWM3NWI4NjVmXkEyXkFqcGc@._V1_.jpg
+Interstellar,Christopher Nolan,8.6,2014,https://m.media-amazon.com/images/M/MV5BYzdjMDAxZGItNDhiZi00NDA0LWI4OWYtOWM3NWIyNmRhNTE0XkEyXkFqcGc@._V1_.jpg
+The Avengers,Joss Whedon,8.0,2012,https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGc@._V1_.jpg
+Gladiator,Ridley Scott,8.5,2000,https://m.media-amazon.com/images/M/MV5BYWQ4YmNjYjEtOWE1Zi00Y2U4LWI4NTAtMTU0MjkxNWQ1ZmJiXkEyXkFqcGc@._V1_.jpg
