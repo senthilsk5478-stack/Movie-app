@@ -26,7 +26,6 @@ duration_range = st.sidebar.slider("⏱️ Duration (minutes):", min_value=min_d
 min_votes, max_votes = int(data['Votes'].min()), int(data['Votes'].max())
 votes_range = st.sidebar.slider("🗳️ Voting Counts:", min_value=min_votes, max_value=max_votes, value=(min_votes, max_votes), step=1000)
 
-# --- NEW FEATURE: BOX OFFICE SLIDER ---
 min_bo, max_bo = int(data['Box Office'].min()), int(data['Box Office'].max())
 bo_range = st.sidebar.slider("💰 Box Office ($ Millions):", min_value=min_bo, max_value=max_bo, value=(min_bo, max_bo))
 
@@ -51,22 +50,34 @@ filtered_data = filtered_data[
 
 filtered_data = filtered_data.sort_values(by="IMDB Rating", ascending=False)
 
-# 4. Top Summary with 4 Metrics
+# --- NEW FEATURE: KPI DELTAS (Green & Red Arrows) ---
 st.write(f"**Displaying {len(filtered_data)} movies matching your criteria (out of {len(data)} total movies).**")
 
-# Expanded to 4 columns to include Total Box Office
+# Step A: Calculate the global averages of the entire database first
+global_avg_rating = data['IMDB Rating'].mean()
+global_avg_votes = data['Votes'].mean()
+global_avg_bo = data['Box Office'].mean()
+
+# Step B: Compare the filtered data against the global averages
 col1, col2, col3, col4 = st.columns(4)
 with col1:
-    st.metric("Total Movies Found", len(filtered_data))
+    movies_diff = len(filtered_data) - len(data)
+    st.metric("Total Movies Found", len(filtered_data), delta=f"{movies_diff} from total", delta_color="off")
+    
 with col2:
-    avg_rating = filtered_data['IMDB Rating'].mean() if not filtered_data.empty else 0
-    st.metric("Average Rating", f"{avg_rating:.1f} ⭐")
+    filtered_avg_rating = filtered_data['IMDB Rating'].mean() if not filtered_data.empty else 0
+    rating_delta = filtered_avg_rating - global_avg_rating
+    st.metric("Average Rating", f"{filtered_avg_rating:.1f} ⭐", delta=f"{rating_delta:.1f}")
+    
 with col3:
-    total_votes = filtered_data['Votes'].sum() if not filtered_data.empty else 0
-    st.metric("Total Votes", f"{total_votes:,}")
+    filtered_avg_votes = filtered_data['Votes'].mean() if not filtered_data.empty else 0
+    votes_delta = filtered_avg_votes - global_avg_votes
+    st.metric("Average Votes", f"{filtered_avg_votes:,.0f}", delta=f"{votes_delta:,.0f}")
+    
 with col4:
-    total_bo = filtered_data['Box Office'].sum() if not filtered_data.empty else 0
-    st.metric("Total Box Office", f"${total_bo:,}M")
+    filtered_avg_bo = filtered_data['Box Office'].mean() if not filtered_data.empty else 0
+    bo_delta = filtered_avg_bo - global_avg_bo
+    st.metric("Avg Box Office", f"${filtered_avg_bo:,.0f}M", delta=f"{bo_delta:,.0f}M")
     
 st.divider()
 
@@ -125,8 +136,6 @@ with tab1:
     
     st.header("Dataset Extremes")
     if not filtered_data.empty:
-        
-        # --- NEW FEATURE: BOX OFFICE EXTREMES ---
         highest_grossing = filtered_data.loc[filtered_data['Box Office'].idxmax()]
         
         st.subheader("💰 Revenue Extremes")
@@ -160,11 +169,9 @@ with tab1:
 # ---------------------------------------------------------
 with tab2:
     if not filtered_data.empty:
-        
-        # --- NEW FEATURE: TOP BOX OFFICE CHART ---
         st.subheader("💰 Top 10 Highest Grossing Movies")
         top_revenue = filtered_data.nlargest(10, 'Box Office')
-        st.bar_chart(top_revenue, x="Movie Title", y="Box Office", color="#28a745") # Green color for money!
+        st.bar_chart(top_revenue, x="Movie Title", y="Box Office", color="#28a745")
         
         st.divider()
 
