@@ -84,18 +84,26 @@ st.divider()
 tab1, tab2 = st.tabs(["Data & Extremes 📁", "Visual Insights 📈"])
 
 # ---------------------------------------------------------
-# TAB 1: THE RICH FIRST PAGE (TABLE, NEW COLUMN, & EXTREMES)
+# TAB 1: THE RICH FIRST PAGE (TABLE, RATING TIER, & EXTREMES)
 # ---------------------------------------------------------
 with tab1:
-    st.subheader("Raw Data Table & Financial Efficiency")
+    st.subheader("Raw Data Table & Quality Badges")
     
     display_data = filtered_data.copy()
     
-    # --- NEW EXTRA COLUMN: REVENUE PER MINUTE ($K) ---
+    # --- NEW EXTRA COLUMN: RATING TIER BADGE ---
+    def get_tier(rating):
+        if rating >= 8.5:
+            return "🌟 Masterpiece (8.5+)"
+        elif rating >= 8.0:
+            return "⭐ Blockbuster Hit (8.0+)"
+        else:
+            return "🎬 Recommended"
+
     if not display_data.empty:
-        display_data['Rev/Min ($K)'] = ((display_data['Box Office'] * 1000) / display_data['Duration']).round(1)
+        display_data['Rating Tier'] = display_data['IMDB Rating'].apply(get_tier)
     else:
-        display_data['Rev/Min ($K)'] = []
+        display_data['Rating Tier'] = []
 
     display_data.insert(0, 'S.No', range(1, len(display_data) + 1))
     
@@ -126,9 +134,8 @@ with tab1:
                 "Box Office",
                 format="$%d M 💰"
             ),
-            "Rev/Min ($K)": st.column_config.NumberColumn(
-                "Rev/Min ($K)",
-                format="$%.1f K ⚡"
+            "Rating Tier": st.column_config.TextColumn(
+                "Rating Tier 🏆"
             )
         }
     )
@@ -144,7 +151,7 @@ with tab1:
     
     st.divider()
     
-    # --- ADDED CONTENT ON FIRST PAGE: GENRE QUICK SUMMARY ---
+    # --- QUICK BREAKDOWN BY GENRE ---
     if not filtered_data.empty:
         st.subheader("📋 Quick Breakdown by Genre")
         genre_summary = filtered_data.groupby('Genre').agg(
@@ -214,7 +221,7 @@ with tab2:
     else:
         st.warning("No records match your active parameters. Please broaden your filter criteria.")
 
-# --- PROFESSIONAL FOOTER AT THE VERY LAST ---
+# --- PROFESSIONAL FOOTER ---
 st.markdown("---")
 st.markdown(
     "<p style='text-align: center; color: gray; font-size: 14px;'>"
