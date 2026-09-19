@@ -152,11 +152,18 @@ with tab1:
             st.info(f"**Longest Film:** {longest['Movie Title']} ({longest['Duration']} mins)")
 
 # ---------------------------------------------------------
-# TAB 2: CLEAN, INTUITIVE VISUAL INSIGHTS
+# TAB 2: VISUAL INSIGHTS WITH THE MONITOR LINE CHART
 # ---------------------------------------------------------
 with tab2:
     if not filtered_data.empty:
         
+        # --- THE MONITOR-STYLE LINE CHART ---
+        st.subheader("📈 Cinematic Evolution: Average Rating Trend Over Years")
+        yearly_trend = filtered_data.groupby('Year')['IMDB Rating'].mean().reset_index()
+        st.line_chart(yearly_trend, x="Year", y="IMDB Rating", color="#1f77b4")
+        
+        st.divider()
+
         # Row 1: Top Rated vs Top Revenue Side-by-Side
         col1, col2 = st.columns(2)
         with col1:
