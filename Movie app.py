@@ -92,19 +92,9 @@ with tab1:
     display_data = filtered_data.copy()
     display_data.insert(0, 'S.No', range(1, len(display_data) + 1))
     
-    # --- NEW ATTRACTIVE FEATURE: CONDITIONAL TABLE STYLING ---
-    def highlight_top_movies(s):
-        # Highlights movies with a rating of 8.5 or higher in soft green
-        return ['background-color: #d4edda' if val >= 8.5 else '' for val in s]
-
-    # Apply the styling only if the table isn't empty
-    if not display_data.empty:
-        styled_table = display_data.style.apply(highlight_top_movies, subset=['IMDB Rating'])
-    else:
-        styled_table = display_data
-
+    # Standard clean table without color formatting
     st.dataframe(
-        styled_table, 
+        display_data, 
         hide_index=True, 
         use_container_width=True,
         column_config={
