@@ -273,9 +273,8 @@ if not filtered_data.empty:
     col1, col2 = st.columns(2)
     with col1:
         st.subheader("🌟 Top 10 Rated Films (Horizontal Ranking)")
-        top_rating = filtered_data.nsmallest(10, 'IMDB Rating').sort_values('IMDB Rating', ascending=True) if len(filtered_data) >= 10 else filtered_data.sort_values('IMDB Rating', ascending=True)
         top_rating = filtered_data.nlargest(10, 'IMDB Rating').sort_values('IMDB Rating', ascending=True)
-        fig_rating = px.bar(top_rating, x='IMDB Rating', y='Movie Title', orientation='h', text='IMDB Rating', color='IMDB Rating', color_continuousScale='sunset')
+        fig_rating = px.bar(top_rating, x='IMDB Rating', y='Movie Title', orientation='h', text='IMDB Rating', color='IMDB Rating', color_continuous_scale='sunset')
         fig_rating.update_layout(xaxis_title="IMDB Rating", yaxis_title="")
         st.plotly_chart(fig_rating, use_container_width=True)
 
@@ -305,7 +304,7 @@ if not filtered_data.empty:
     with col4:
         st.subheader("🗳️ Most Voted Films (Horizontal Ranking)")
         top_votes = filtered_data.nlargest(10, 'Votes').sort_values('Votes', ascending=True)
-        fig_votes = px.bar(top_votes, x='Votes', y='Movie Title', orientation='h', color='Votes', color_continuousScale='purples')
+        fig_votes = px.bar(top_votes, x='Votes', y='Movie Title', orientation='h', color='Votes', color_continuous_scale='purples')
         fig_votes.update_layout(xaxis_title="Total Votes", yaxis_title="")
         st.plotly_chart(fig_votes, use_container_width=True)
 
