@@ -26,6 +26,10 @@ duration_range = st.sidebar.slider("⏱️ Duration (minutes):", min_value=min_d
 min_votes, max_votes = int(data['Votes'].min()), int(data['Votes'].max())
 votes_range = st.sidebar.slider("🗳️ Voting Counts:", min_value=min_votes, max_value=max_votes, value=(min_votes, max_votes), step=1000)
 
+# --- NEW FEATURE: BOX OFFICE SLIDER ---
+min_bo, max_bo = int(data['Box Office'].min()), int(data['Box Office'].max())
+bo_range = st.sidebar.slider("💰 Box Office ($ Millions):", min_value=min_bo, max_value=max_bo, value=(min_bo, max_bo))
+
 # 3. Apply the filters
 filtered_data = data.copy()
 
@@ -41,15 +45,17 @@ if selected_genres:
 filtered_data = filtered_data[
     (filtered_data['IMDB Rating'] >= rating_range[0]) & (filtered_data['IMDB Rating'] <= rating_range[1]) &
     (filtered_data['Duration'] >= duration_range[0]) & (filtered_data['Duration'] <= duration_range[1]) &
-    (filtered_data['Votes'] >= votes_range[0]) & (filtered_data['Votes'] <= votes_range[1])
+    (filtered_data['Votes'] >= votes_range[0]) & (filtered_data['Votes'] <= votes_range[1]) &
+    (filtered_data['Box Office'] >= bo_range[0]) & (filtered_data['Box Office'] <= bo_range[1])
 ]
 
 filtered_data = filtered_data.sort_values(by="IMDB Rating", ascending=False)
 
-# 4. Top Summary
+# 4. Top Summary with 4 Metrics
 st.write(f"**Displaying {len(filtered_data)} movies matching your criteria (out of {len(data)} total movies).**")
 
-col1, col2, col3 = st.columns(3)
+# Expanded to 4 columns to include Total Box Office
+col1, col2, col3, col4 = st.columns(4)
 with col1:
     st.metric("Total Movies Found", len(filtered_data))
 with col2:
@@ -58,6 +64,9 @@ with col2:
 with col3:
     total_votes = filtered_data['Votes'].sum() if not filtered_data.empty else 0
     st.metric("Total Votes", f"{total_votes:,}")
+with col4:
+    total_bo = filtered_data['Box Office'].sum() if not filtered_data.empty else 0
+    st.metric("Total Box Office", f"${total_bo:,}M")
     
 st.divider()
 
@@ -94,12 +103,15 @@ with tab1:
             ),
             "Year": st.column_config.NumberColumn(
                 "Year",
-                format="%d" # Removes commas from the year (e.g. 2,024 -> 2024)
+                format="%d"
+            ),
+            "Box Office": st.column_config.NumberColumn(
+                "Box Office",
+                format="$%d M 💰"
             )
         }
     )
     
-    # --- NEW FEATURE: DOWNLOAD BUTTON ---
     if not filtered_data.empty:
         csv = display_data.to_csv(index=False)
         st.download_button(
@@ -111,10 +123,16 @@ with tab1:
     
     st.divider()
     
-    # --- EXTREMES SECTION ---
     st.header("Dataset Extremes")
     if not filtered_data.empty:
-        # Duration Extremes
+        
+        # --- NEW FEATURE: BOX OFFICE EXTREMES ---
+        highest_grossing = filtered_data.loc[filtered_data['Box Office'].idxmax()]
+        
+        st.subheader("💰 Revenue Extremes")
+        st.success(f"**Highest Grossing Movie:** {highest_grossing['Movie Title']} (${highest_grossing['Box Office']} Million)")
+        st.write("")
+
         shortest = filtered_data.loc[filtered_data['Duration'].idxmin()]
         longest = filtered_data.loc[filtered_data['Duration'].idxmax()]
 
@@ -125,26 +143,28 @@ with tab1:
         with ext2:
             st.info(f"**Longest Movie:** {longest['Movie Title']} ({longest['Duration']} mins)")
             
-        st.write("") # Adds a little spacing
+        st.write("")
 
-        # --- NEW FEATURE: AGE EXTREMES ---
         oldest = filtered_data.loc[filtered_data['Year'].idxmin()]
         newest = filtered_data.loc[filtered_data['Year'].idxmax()]
         
         st.subheader("📅 Age Extremes")
         ext3, ext4 = st.columns(2)
         with ext3:
-            st.success(f"**Oldest Movie:** {oldest['Movie Title']} ({oldest['Year']})")
+            st.info(f"**Oldest Movie:** {oldest['Movie Title']} ({oldest['Year']})")
         with ext4:
-            st.success(f"**Newest Movie:** {newest['Movie Title']} ({newest['Year']})")
+            st.info(f"**Newest Movie:** {newest['Movie Title']} ({newest['Year']})")
 
 # ---------------------------------------------------------
 # TAB 2: ALL OF THE CHARTS
 # ---------------------------------------------------------
 with tab2:
     if not filtered_data.empty:
-        st.subheader("Basic Rating Chart")
-        st.bar_chart(filtered_data, x="Movie Title", y="IMDB Rating")
+        
+        # --- NEW FEATURE: TOP BOX OFFICE CHART ---
+        st.subheader("💰 Top 10 Highest Grossing Movies")
+        top_revenue = filtered_data.nlargest(10, 'Box Office')
+        st.bar_chart(top_revenue, x="Movie Title", y="Box Office", color="#28a745") # Green color for money!
         
         st.divider()
 
@@ -173,7 +193,7 @@ with tab2:
 
         st.divider()
 
-        st.subheader("Rating vs. Voting Counts (Correlation)")
-        st.scatter_chart(filtered_data, x="IMDB Rating", y="Votes")
+        st.subheader("Rating vs. Box Office (Does high rating mean more money?)")
+        st.scatter_chart(filtered_data, x="IMDB Rating", y="Box Office", color="#28a745")
     else:
         st.warning("No movies match your current filters. Adjust the sliders to see charts!")
